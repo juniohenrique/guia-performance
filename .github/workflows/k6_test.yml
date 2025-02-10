@@ -18,7 +18,6 @@ jobs:
 
       - name: Install k6
         run: |
-          snap update
           snap install -y k6
 
       - name: Run k6 Load Test
