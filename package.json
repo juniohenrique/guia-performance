@@ -1,0 +1,12 @@
+{
+  "name": "k6-load-test",
+  "version": "1.0.0",
+  "description": "Projeto para testes de carga usando k6",
+  "main": "test.js",
+  "scripts": {
+    "test": "k6 run test.js"
+  },
+  "devDependencies": {
+    "k6": "^0.0.0"
+  }
+}
