@@ -18,8 +18,8 @@ jobs:
 
       - name: Install k6
         run: |
-          sudo apt update
-          sudo apt install -y k6
+          snap update
+          snap install -y k6
 
       - name: Run k6 Load Test
         run: k6 run test.js
