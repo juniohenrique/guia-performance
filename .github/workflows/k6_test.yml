@@ -18,7 +18,7 @@ jobs:
 
       - name: Install k6
         run: |
-          snap install -y k6
+          snap install k6
 
       - name: Run k6 Load Test
         run: k6 run test.js
