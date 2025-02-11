@@ -1,27 +1,21 @@
 import http from 'k6/http';
-import { check, sleep } from 'k6';
-import { Trend } from 'k6/metrics';
+import { Rate, Trend } from 'k6/metrics';
 
-export let options = {
-  vus: 100,
-  duration: '1m',
-};
+const failureRate = new Rate('api_mock_Failure Rate');
+const latency = new Trend('api_mock_latency');
+const requestCount = new Counter('api_mock_request_count');
 
-let responseTime = new Trend('response_time');
-let cpuUsage = new Trend('cpu_usage');
+options = {
+  thresholds: {
+    'api_mock_failure_Rate': ['rate < 0.1}'],
+    'api_mock_latency': ['p(90) < 1000'],
+    'api_mock_request_count': ['count >= 350', 'count <= 400'],
+}
+}
 
 export default function () {
-  let startCPU = __CPU_USAGE__;
-  let res = http.get('https://api.mock.com/endpoint');
-  let endCPU = __CPU_USAGE__;
-
-  responseTime.add(res.timings.duration);
-  cpuUsage.add(endCPU - startCPU);
-
-  check(res, {
-    'status is 200': (r) => r.status === 200,
-    'response time is acceptable': (r) => r.timings.duration < 500,
-  });
-
-  sleep(1);
+  const r = http.get('https://api.mock.com/endpoint');
+  latency.add(r.timings.duration);
+  failureRate.add(r.status !== 200);
+  requestCount.add(1);
 }
