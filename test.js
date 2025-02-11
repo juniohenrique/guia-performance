@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { Rate, Trend } from 'k6/metrics';
 
-const failureRate = new Rate('api_mock_Failure Rate');
+const failureRate = new Rate('api_mock_Failure_Rate');
 const latency = new Trend('api_mock_latency');
 const requestCount = new Counter('api_mock_request_count');
 
