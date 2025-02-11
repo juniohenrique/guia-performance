@@ -7,7 +7,7 @@ const requestCount = new Counter('api_mock_request_count');
 
 export const options = {
   thresholds: {
-    'api_mock_failure_Rate': ['rate < 0.1}'],
+    'api_mock_failure_Rate': ['rate < 0.1'],
     'api_mock_latency': ['p(90) < 1000'],
     'api_mock_request_count': ['count >= 350', 'count <= 400'],
 }
